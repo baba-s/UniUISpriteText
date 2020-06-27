@@ -1,0 +1,15 @@
+{
+    "name": "UniUISpriteText",
+    "references": [
+        "GUID:7a2e68dca388f2d4e8273449c0a9fa7d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
