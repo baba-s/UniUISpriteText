@@ -17,12 +17,14 @@ namespace Kogane
 		[SerializeField] private SpriteAtlasCacher m_spriteAtlasCacher = default;
 		[SerializeField] private string            m_spriteNamePrefix  = default;
 		[SerializeField] private bool              m_isZeroFill        = default;
+		[SerializeField] private bool              m_isSnap            = default;
 
 		//==============================================================================
 		// 変数
 		//==============================================================================
 		private Image[] m_imageList;
 		private bool    m_isInit;
+		private int?    m_value;
 
 		//==============================================================================
 		// プロパティ
@@ -69,17 +71,23 @@ namespace Kogane
 		/// </summary>
 		public void SetValue( int value )
 		{
+			if ( m_value == value ) return;
+
+			m_value = value;
+
 			Init();
 
+			var length = m_imageList.Length;
+
 			var text = m_isZeroFill
-				? value.ToString( "D" + m_imageList.Length.ToString() )
+				? value.ToString( "D" + length.ToString() )
 				: value.ToString();
 
-			var offset = m_imageList.Length - text.Length;
+			var offset = length - text.Length;
 
-			for ( int i = 0; i < m_imageList.Length; i++ )
+			for ( int i = 0; i < length; i++ )
 			{
-				var inverseIndex = m_imageList.Length - i - 1;
+				var inverseIndex = length - i - 1;
 				var val          = m_imageList[ i ];
 
 				if ( text.Length <= inverseIndex )
@@ -94,6 +102,11 @@ namespace Kogane
 
 				val.gameObject.SetActive( true );
 				val.sprite = sprite;
+
+				if ( m_isSnap )
+				{
+					val.SetNativeSize();
+				}
 			}
 		}
 	}
